@@ -1,0 +1,4 @@
+{
+  "emulatedFormFactor": "desktop",
+  "skipAudits": ["unsized-images"]
+}

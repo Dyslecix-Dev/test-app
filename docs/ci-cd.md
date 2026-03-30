@@ -37,9 +37,9 @@ Runs performance, accessibility, best-practices, and SEO audits.
 
 All workflows use:
 
-- `actions/checkout@v5`
-- `pnpm/action-setup@v4` (auto-detects version from `packageManager` in `package.json`)
-- `actions/setup-node@v4` with `node-version: lts/*` and pnpm cache
+- `actions/checkout@v6`
+- `pnpm/action-setup@v5` (auto-detects version from `packageManager` in `package.json`)
+- `actions/setup-node@v6` with `node-version: lts/*` and pnpm cache
 - `FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"` env var
 
 ## Adding a New Workflow
@@ -60,9 +60,9 @@ jobs:
     env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
     steps:
-      - uses: actions/checkout@v5
-      - uses: pnpm/action-setup@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v6
+      - uses: pnpm/action-setup@v5
+      - uses: actions/setup-node@v6
         with:
           node-version: lts/*
           cache: "pnpm"
