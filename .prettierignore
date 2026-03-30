@@ -1,0 +1,41 @@
+# dependencies
+node_modules
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# drizzle
+drizzle/
+
+# env files
+.env.example
+.env.local
+
+# next.js
+.next
+out
+
+# production
+build/
+
+# serwist
+public/sw*
+public/swe-worker*
+public/workbox-*
+
+# testing
+coverage/
+playwright-report/
+test-results/
+blob-report/
+
+# typescript
+next-env.d.ts
+
+# vercel / turbo
+.vercel/
+.turbo/
+.output/
+
+# misc
+dist/

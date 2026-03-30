@@ -1,0 +1,33 @@
+name: Lighthouse CI
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+jobs:
+  lighthouse:
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          cache: "pnpm"
+      - name: Install dependencies
+        run: pnpm install
+      - name: Build production site
+        run: pnpm build
+      - name: Collect Lighthouse reports
+        run: pnpm exec lhci collect
+      - name: Assert Lighthouse thresholds
+        run: pnpm exec lhci assert
+      - uses: actions/upload-artifact@v5
+        if: always()
+        with:
+          name: lighthouse-report
+          path: .lighthouseci/
+          retention-days: 30
+      - name: Upload Lighthouse reports
+        run: pnpm exec lhci upload

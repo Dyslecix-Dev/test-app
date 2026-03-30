@@ -1,12 +1,26 @@
 import Link from "next/link";
-import { Button } from "./ui/button";
+
+import { LogoutButton } from "@/components/logout-button";
+import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/server";
-import { LogoutButton } from "./logout-button";
 
 export async function AuthButton() {
+  if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY) {
+    return (
+      <div className="flex gap-2">
+        <Button asChild size="sm" variant={"outline"}>
+          <Link href="/auth/login">Sign in</Link>
+        </Button>
+        <Button asChild size="sm" variant={"default"}>
+          <Link href="/auth/sign-up">Sign up</Link>
+        </Button>
+      </div>
+    );
+  }
+
   const supabase = await createClient();
 
-  // You can also use getUser() which will be slower.
+  // NOTE: you can also use getUser() which will be slower.
   const { data } = await supabase.auth.getClaims();
 
   const user = data?.claims;

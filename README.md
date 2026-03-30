@@ -1,109 +1,233 @@
-<a href="https://demo-nextjs-with-supabase.vercel.app/">
-  <img alt="Next.js and Supabase Starter Kit - the fastest way to build apps with Next.js and Supabase" src="https://demo-nextjs-with-supabase.vercel.app/opengraph-image.png">
-  <h1 align="center">Next.js and Supabase Starter Kit</h1>
-</a>
+# Boilerplate
 
-<p align="center">
- The fastest way to build apps with Next.js and Supabase
-</p>
+An opinionated full-stack Next.js boilerplate for building modern web applications. Ships with authentication, database, UI components, PWA support, and a comprehensive testing setup — ready to build on.
 
-<p align="center">
-  <a href="#features"><strong>Features</strong></a> ·
-  <a href="#demo"><strong>Demo</strong></a> ·
-  <a href="#deploy-to-vercel"><strong>Deploy to Vercel</strong></a> ·
-  <a href="#clone-and-run-locally"><strong>Clone and run locally</strong></a> ·
-  <a href="#feedback-and-issues"><strong>Feedback and issues</strong></a>
-  <a href="#more-supabase-examples"><strong>More Examples</strong></a>
-</p>
-<br/>
+## What's Included
 
-## Features
+| Category      | Technology                                                    |
+| ------------- | ------------------------------------------------------------- |
+| Framework     | Next.js 16, React 19, TypeScript 5.9                          |
+| Database      | PostgreSQL (Supabase), Drizzle ORM                            |
+| Auth          | Supabase Auth (cookie sessions, proxy-based route protection) |
+| UI            | shadcn/ui (New York), Tailwind CSS v4, Radix UI               |
+| State         | Zustand (global), nuqs (URL query params)                     |
+| Forms         | Conform, Zod v4                                               |
+| PWA           | Serwist (service worker, offline fallback, installable)       |
+| Testing       | Vitest (unit), Playwright (e2e), Lighthouse CI (perf)         |
+| Code Quality  | ESLint, Prettier, CI pipelines via GitHub Actions             |
+| Animations    | Motion (Framer Motion)                                        |
+| Charts        | Recharts                                                      |
+| Email         | Resend + React Email (transactional email, templates)         |
+| Notifications | Sonner (toasts)                                               |
+| Dark Mode     | next-themes (system, light, dark)                             |
 
-- Works across the entire [Next.js](https://nextjs.org) stack
-  - App Router
-  - Pages Router
-  - Proxy
-  - Client
-  - Server
-  - It just works!
-- supabase-ssr. A package to configure Supabase Auth to use cookies
-- Password-based authentication block installed via the [Supabase UI Library](https://supabase.com/ui/docs/nextjs/password-based-auth)
-- Styling with [Tailwind CSS](https://tailwindcss.com)
-- Components with [shadcn/ui](https://ui.shadcn.com/)
-- Optional deployment with [Supabase Vercel Integration and Vercel deploy](#deploy-your-own)
-  - Environment variables automatically assigned to Vercel project
+## Getting Started
 
-## Demo
+### Prerequisites
 
-You can view a fully working demo at [demo-nextjs-with-supabase.vercel.app](https://demo-nextjs-with-supabase.vercel.app/).
+- [Node.js](https://nodejs.org/) (LTS)
+- [pnpm](https://pnpm.io/) v10+
+- A [Supabase](https://supabase.com/) project
 
-## Deploy to Vercel
+### Setup
 
-Vercel deployment will guide you through creating a Supabase account and project.
-
-After installation of the Supabase integration, all relevant environment variables will be assigned to the project so the deployment is fully functioning.
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fnext.js%2Ftree%2Fcanary%2Fexamples%2Fwith-supabase&project-name=nextjs-with-supabase&repository-name=nextjs-with-supabase&demo-title=nextjs-with-supabase&demo-description=This+starter+configures+Supabase+Auth+to+use+cookies%2C+making+the+user%27s+session+available+throughout+the+entire+Next.js+app+-+Client+Components%2C+Server+Components%2C+Route+Handlers%2C+Server+Actions+and+Middleware.&demo-url=https%3A%2F%2Fdemo-nextjs-with-supabase.vercel.app%2F&external-id=https%3A%2F%2Fgithub.com%2Fvercel%2Fnext.js%2Ftree%2Fcanary%2Fexamples%2Fwith-supabase&demo-image=https%3A%2F%2Fdemo-nextjs-with-supabase.vercel.app%2Fopengraph-image.png)
-
-The above will also clone the Starter kit to your GitHub, you can clone that locally and develop locally.
-
-If you wish to just develop locally and not deploy to Vercel, [follow the steps below](#clone-and-run-locally).
-
-## Clone and run locally
-
-1. You'll first need a Supabase project which can be made [via the Supabase dashboard](https://database.new)
-
-2. Create a Next.js app using the Supabase Starter template npx command
+1. **Clone the repository**
 
    ```bash
-   npx create-next-app --example with-supabase with-supabase-app
+   git clone <your-repo-url>
+   cd boilerplate
    ```
+
+2. **Install dependencies**
 
    ```bash
-   yarn create next-app --example with-supabase with-supabase-app
+   pnpm install
    ```
+
+3. **Set up environment variables**
 
    ```bash
-   pnpm create next-app --example with-supabase with-supabase-app
+   cp .env.example .env
    ```
 
-3. Use `cd` to change into the app's directory
+   Fill in your Supabase credentials. See [docs/environment.md](docs/environment.md) for details on each variable.
+
+   > **Want to explore the UI first?** You can skip env setup and run `NODE_ENV=test pnpm dev` to start the dev server with validation disabled. Auth and database features won't work, but you can browse the pages and components.
+   >
+   > **Using the Vercel × Supabase integration?** All env vars are populated automatically when you create a Supabase project through Vercel. The `.env.example` file includes every variable Vercel provides — some are aliases for the same value (see [docs/environment.md](docs/environment.md) for details).
+
+4. **Configure Supabase Auth**
+
+   In your [Supabase dashboard](https://supabase.com/dashboard) under **Authentication → URL Configuration**:
+   - Set **Site URL** to `http://localhost:3000`
+   - Add `http://localhost:3000/**` to **Redirect URLs**
+
+   For production, add your deployed domain to both fields as well.
+
+5. **Set up the database**
 
    ```bash
-   cd with-supabase-app
+   pnpm db:push       # Push schema to your Supabase database
    ```
 
-4. Rename `.env.example` to `.env.local` and update the following:
-
-  ```env
-  NEXT_PUBLIC_SUPABASE_URL=[INSERT SUPABASE PROJECT URL]
-  NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=[INSERT SUPABASE PROJECT API PUBLISHABLE OR ANON KEY]
-  ```
-  > [!NOTE]
-  > This example uses `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`, which refers to Supabase's new **publishable** key format.
-  > Both legacy **anon** keys and new **publishable** keys can be used with this variable name during the transition period. Supabase's dashboard may show `NEXT_PUBLIC_SUPABASE_ANON_KEY`; its value can be used in this example.
-  > See the [full announcement](https://github.com/orgs/supabase/discussions/29260) for more information.
-
-  Both `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` can be found in [your Supabase project's API settings](https://supabase.com/dashboard/project/_?showConnect=true)
-
-5. You can now run the Next.js local development server:
+6. **Start the dev server**
 
    ```bash
-   npm run dev
+   pnpm dev
    ```
 
-   The starter kit should now be running on [localhost:3000](http://localhost:3000/).
+   Open [http://localhost:3000](http://localhost:3000).
 
-6. This template comes with the default shadcn/ui style initialized. If you instead want other ui.shadcn styles, delete `components.json` and [re-install shadcn/ui](https://ui.shadcn.com/docs/installation/next)
+## Project Structure
 
-> Check out [the docs for Local Development](https://supabase.com/docs/guides/getting-started/local-development) to also run Supabase locally.
+```text
+app/
+  layout.tsx          # Root layout (theme, PWA, toasts, URL state providers)
+  page.tsx            # Landing page
+  auth/               # Auth routes (login, sign-up, forgot-password, etc.)
+  protected/          # Auth-guarded pages
+  ~offline/           # PWA offline fallback page
+emails/               # React Email templates (welcome, reset-password, otp)
+components/
+  ui/                 # shadcn/ui primitives
+  *.tsx               # Feature components
+lib/
+  db/                 # Drizzle ORM (client, schema, queries)
+  email/              # Resend client + sendEmail helper
+  supabase/           # Supabase clients (server, browser, proxy)
+  utils.ts            # Shared utilities
+e2e/                  # Playwright E2E tests
+docs/                 # Detailed documentation
+.agents/skills/       # Claude Code agent skills
+.github/workflows/    # CI pipelines (Vitest, Playwright, Lighthouse)
+```
 
-## Feedback and issues
+## Available Scripts
 
-Please file feedback and issues over on the [Supabase GitHub org](https://github.com/supabase/supabase/issues/new/choose).
+| Command                 | Description                     |
+| ----------------------- | ------------------------------- |
+| `pnpm dev`              | Start development server        |
+| `pnpm build`            | Build for production            |
+| `pnpm start`            | Start production server         |
+| `pnpm test`             | Run unit tests (Vitest)         |
+| `pnpm test:e2e`         | Run E2E tests (Playwright)      |
+| `pnpm lighthouse:local` | Build and run Lighthouse audit  |
+| `pnpm lint`             | Run ESLint                      |
+| `pnpm format`           | Format code with Prettier       |
+| `pnpm db:generate`      | Generate a database migration   |
+| `pnpm db:migrate`       | Run pending migrations          |
+| `pnpm db:push`          | Push schema to database (dev)   |
+| `pnpm db:seed`          | Seed database with initial data |
+| `pnpm db:studio`        | Open Drizzle Studio             |
+| `pnpm email:dev`        | Preview email templates (3001)  |
 
-## More Supabase examples
+## Documentation
 
-- [Next.js Subscription Payments Starter](https://github.com/vercel/nextjs-subscription-payments)
-- [Cookie-based Auth and the Next.js 13 App Router (free course)](https://youtube.com/playlist?list=PL5S4mPUpp4OtMhpnp93EFSo42iQ40XjbF)
-- [Supabase Auth and the Next.js App Router](https://github.com/supabase/supabase/tree/master/examples/auth/nextjs)
+Detailed guides for each area of the codebase:
+
+- [Auth Patterns](docs/auth-patterns.md) — Supabase Auth, session management, route protection
+- [CI/CD](docs/ci-cd.md) — GitHub Actions workflows, deployment
+- [Deployment](docs/deployment.md) — Vercel, Docker, other platforms, production checklist
+- [Component Patterns](docs/component-patterns.md) — shadcn/ui, styling, server vs client components, utility hooks
+- [Database Patterns](docs/database-patterns.md) — Drizzle ORM, schema conventions, migrations, seeding
+- [Email](docs/email.md) — Resend setup, sendEmail() helper, React Email templates
+- [Environment Variables](docs/environment.md) — Required env vars, build-time validation
+- [PWA](docs/pwa.md) — Service worker, manifest, offline support, push notifications
+- [Testing](docs/testing.md) — Vitest, Playwright, Lighthouse CI configuration
+
+## Pre-Launch Checklist
+
+Before shipping, work through [CHECKLIST.md](CHECKLIST.md) — it covers branding, environment setup, email templates, database, auth configuration, and removing demo content.
+
+## Cleaning Up
+
+The boilerplate ships with a few demo-only files. These are safe to delete — they have no effect on the rest of the app:
+
+| What to remove        | File(s)                                       | Also remove from                                                                         |
+| --------------------- | --------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| Deploy button         | `components/deploy-button.tsx`                | Its `<DeployButton />` usage and import in `app/page.tsx` and `app/protected/layout.tsx` |
+| Hero section          | `components/hero.tsx`                         | Its `<Hero />` usage and import in `app/page.tsx`                                        |
+| Demo protected page   | `app/protected/page.tsx`                      | Replace with your own protected content                                                  |
+| Example E2E test      | `e2e/example.spec.ts`                         | Replace with your own tests                                                              |
+| Example profile page  | `app/protected/profile/`                      | Replace with your own profile page                                                       |
+| Example Zustand store | `lib/stores/example-store.ts`                 | Replace with your own stores                                                             |
+| Example nuqs hook     | `lib/hooks/use-search-params.ts`              | Replace with your own hooks                                                              |
+| Example unit tests    | `lib/utils.test.ts`, `lib/rate-limit.test.ts` | Replace with your own tests                                                              |
+
+Every removable line is also marked with a `TODO` comment in the code — search for `TODO: remove` to find them all.
+
+## Customizing
+
+### Branding
+
+1. Update app name in `app/manifest.ts` and `app/layout.tsx`
+2. Replace icons in `public/icons/` and splash screens in `public/splash/`
+3. Modify theme colors in `app/globals.css`
+
+### Adding UI Components
+
+```bash
+pnpm dlx shadcn@latest add button card dialog
+```
+
+### Adding Database Tables
+
+1. Create a new schema file in `lib/db/schema/`
+2. Export it from `lib/db/schema/index.ts`
+3. Run `pnpm db:generate && pnpm db:migrate`
+
+### Deployment
+
+The project is configured for [Vercel](https://vercel.com). Connect your GitHub repo and deploy. For other platforms:
+
+```bash
+pnpm build && pnpm start
+```
+
+## Agent Skills (Claude Code)
+
+This boilerplate ships with pre-configured [Claude Code](https://claude.ai/claude-code) agent skills in `.agents/skills/` for AI-assisted development:
+
+| Skill                            | Source                      | Purpose                                           |
+| -------------------------------- | --------------------------- | ------------------------------------------------- |
+| agent-email-inbox                | resend/resend-skills        | Resend inbox and email management patterns        |
+| email-best-practices             | resend/email-best-practices | Email design, deliverability, and templates       |
+| frontend-design                  | anthropics/skills           | Frontend design best practices                    |
+| react-email                      | resend/react-email          | React Email component patterns                    |
+| resend                           | resend/resend-skills        | Resend API usage, sending patterns, and webhooks  |
+| seo-audit                        | coreyhaines31               | SEO auditing guidelines                           |
+| shadcn                           | shadcn/ui                   | Component patterns, composition, forms, styling   |
+| supabase-postgres-best-practices | supabase/agent-skills       | PostgreSQL queries, schema, security, connections |
+| systematic-debugging             | obra/superpowers            | Root cause tracing and debugging strategies       |
+| test-driven-development          | obra/superpowers            | TDD workflow and testing anti-patterns            |
+| vercel-react-best-practices      | vercel-labs                 | React performance, rendering, bundle optimization |
+| web-design-guidelines            | vercel-labs                 | a11y, performance, and UX auditing guidelines     |
+
+Skills are locked via `skills-lock.json`.
+
+## Health Check & Uptime Monitoring
+
+The app exposes a `GET /api/health` endpoint that tests database connectivity and returns:
+
+- `200 { "status": "ok" }` — app and database are healthy
+- `503 { "status": "error", "message": "Database connection failed" }` — app is up but the database is unreachable
+
+This endpoint is designed for uptime monitoring services like [Better Stack](https://betterstack.com/). To set it up:
+
+1. Create a monitor in Better Stack pointing to `https://your-domain.com/api/health`
+2. Set the expected status code to `200`
+3. Choose your check interval (e.g., every 30 seconds)
+
+Better Stack will alert you when the endpoint returns a non-200 status or becomes unreachable, catching both app crashes and database outages.
+
+## Code Quality
+
+- **ESLint** with Next.js, TypeScript, accessibility, and Prettier configs
+- **Prettier** with import sorting and Tailwind class ordering
+- **Build-time env validation** via Zod in `next.config.ts`
+- **Security headers** (X-Content-Type-Options, X-Frame-Options, Referrer-Policy)
+- **Lighthouse CI** enforces accessibility scores above 90%
+
+## License
+
+[MIT](LICENSE)

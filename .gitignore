@@ -1,4 +1,11 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# claude code
+.claude/
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
 
 # dependencies
 /node_modules
@@ -10,8 +17,9 @@
 !.yarn/releases
 !.yarn/versions
 
-# testing
-/coverage
+# env files
+.env*.local
+.env
 
 # next.js
 /.next/
@@ -20,23 +28,29 @@
 # production
 /build
 
-# misc
-.DS_Store
-*.pem
+# serwist
+public/sw*
+public/swe-worker*
 
-# debug
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-.pnpm-debug.log*
-
-# env files (can opt-in for committing if needed)
-.env*.local
-.env
-
-# vercel
-.vercel
+# testing
+/coverage
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/
+/.lighthouseci/
 
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# vercel
+.vercel
+
+# vs code
+.vscode
+
+# misc
+.DS_Store
+*.pem

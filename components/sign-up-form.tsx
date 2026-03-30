@@ -1,25 +1,17 @@
 "use client";
 
-import { cn } from "@/lib/utils";
-import { createClient } from "@/lib/supabase/client";
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { type ComponentPropsWithoutRef, useMemo, useState } from "react";
 
-export function SignUpForm({
-  className,
-  ...props
-}: React.ComponentPropsWithoutRef<"div">) {
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { createClient } from "@/lib/supabase/client";
+import { cn } from "@/lib/utils";
+
+export function SignUpForm({ className, ...props }: ComponentPropsWithoutRef<"div">) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
@@ -27,7 +19,26 @@ export function SignUpForm({
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
-  const handleSignUp = async (e: React.FormEvent) => {
+  const passwordStrength = useMemo(() => {
+    if (!password) return { score: 0, label: "", color: "" };
+    let score = 0;
+    if (password.length >= 8) score++;
+    if (password.length >= 12) score++;
+    if (/[a-z]/.test(password) && /[A-Z]/.test(password)) score++;
+    if (/\d/.test(password)) score++;
+    if (/[^a-zA-Z0-9]/.test(password)) score++;
+    const levels = [
+      { label: "Weak", color: "bg-red-500" },
+      { label: "Weak", color: "bg-red-500" },
+      { label: "Fair", color: "bg-yellow-500" },
+      { label: "Good", color: "bg-blue-500" },
+      { label: "Strong", color: "bg-green-500" },
+      { label: "Strong", color: "bg-green-500" },
+    ];
+    return { score, ...levels[score] };
+  }, [password]);
+
+  const handleSignUp = async (e: { preventDefault(): void }) => {
     e.preventDefault();
     const supabase = createClient();
     setIsLoading(true);
@@ -44,7 +55,8 @@ export function SignUpForm({
         email,
         password,
         options: {
-          emailRedirectTo: `${window.location.origin}/protected`,
+          // TODO: update emailRedirectTo to your app's post-signup destination
+          emailRedirectTo: `${process.env.NEXT_PUBLIC_APP_URL ?? location.origin}/protected`,
         },
       });
       if (error) throw error;
@@ -68,40 +80,35 @@ export function SignUpForm({
             <div className="flex flex-col gap-6">
               <div className="grid gap-2">
                 <Label htmlFor="email">Email</Label>
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="m@example.com"
-                  required
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
+                <Input id="email" type="email" placeholder="m@example.com" required disabled={isLoading} value={email} onChange={(e) => setEmail(e.target.value)} />
               </div>
               <div className="grid gap-2">
                 <div className="flex items-center">
                   <Label htmlFor="password">Password</Label>
                 </div>
-                <Input
-                  id="password"
-                  type="password"
-                  required
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
+                <Input id="password" type="password" required disabled={isLoading} value={password} onChange={(e) => setPassword(e.target.value)} aria-describedby="password-strength" />
+                {password && (
+                  <div id="password-strength" className="flex items-center gap-2">
+                    <div className="flex flex-1 gap-1">
+                      {Array.from({ length: 5 }, (_, i) => (
+                        <div key={i} className={cn("h-1 flex-1 rounded-full transition-colors", i < passwordStrength.score ? passwordStrength.color : "bg-muted")} />
+                      ))}
+                    </div>
+                    <span className="text-muted-foreground text-xs">{passwordStrength.label}</span>
+                  </div>
+                )}
               </div>
               <div className="grid gap-2">
                 <div className="flex items-center">
                   <Label htmlFor="repeat-password">Repeat Password</Label>
                 </div>
-                <Input
-                  id="repeat-password"
-                  type="password"
-                  required
-                  value={repeatPassword}
-                  onChange={(e) => setRepeatPassword(e.target.value)}
-                />
+                <Input id="repeat-password" type="password" required disabled={isLoading} value={repeatPassword} onChange={(e) => setRepeatPassword(e.target.value)} />
               </div>
-              {error && <p className="text-sm text-red-500">{error}</p>}
+              {error && (
+                <p className="text-sm text-red-500" role="alert">
+                  {error}
+                </p>
+              )}
               <Button type="submit" className="w-full" disabled={isLoading}>
                 {isLoading ? "Creating an account..." : "Sign up"}
               </Button>
