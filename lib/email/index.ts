@@ -10,7 +10,7 @@ export function createEmailClient() {
 }
 
 interface SendEmailOptions {
-  from: string;
+  from?: string;
   to: string | string[];
   subject: string;
   template: JSX.Element;
@@ -18,7 +18,11 @@ interface SendEmailOptions {
 
 export async function sendEmail({ from, to, subject, template }: SendEmailOptions) {
   const resend = createEmailClient();
+  const sender = from ?? process.env.EMAIL_FROM;
+  if (!sender) {
+    throw new Error("No sender address: pass `from` or set the EMAIL_FROM environment variable");
+  }
   const [html, text] = await Promise.all([render(template), render(template, { plainText: true })]);
 
-  return resend.emails.send({ from, to, subject, html, text });
+  return resend.emails.send({ from: sender, to, subject, html, text });
 }

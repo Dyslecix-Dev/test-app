@@ -148,7 +148,7 @@ By default, Supabase requires email confirmation before a user can sign in. You 
 1. Go to [Authentication → Providers → Email](https://supabase.com/dashboard/project/_/auth/providers)
 2. Toggle "Confirm email" on or off depending on your needs
 
-When confirmation is enabled, `supabase.auth.signUp()` creates the user but they can't sign in until they click the confirmation link. The boilerplate handles this by redirecting to `/auth/sign-up-success` which tells the user to check their email.
+When confirmation is enabled, `supabase.auth.signUp()` creates the user but they can't sign in until they click the confirmation link. The full-stack boilerplate handles this by redirecting to `/auth/sign-up-success` which tells the user to check their email.
 
 ## Supabase Emails vs. Resend Emails
 

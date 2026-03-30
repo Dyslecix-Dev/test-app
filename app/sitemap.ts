@@ -1,8 +1,10 @@
 import type { MetadataRoute } from "next";
 
+import { siteConfig } from "@/lib/config";
+
 // TODO: add your app's public routes here — dynamic routes can be fetched from the database
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000";
+  const baseUrl = siteConfig.url;
 
   return [
     {

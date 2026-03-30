@@ -1,14 +1,16 @@
 import type { MetadataRoute } from "next";
 
-// TODO: update the disallow rules to match your app's private routes
+import { siteConfig } from "@/lib/config";
+
 export default function robots(): MetadataRoute.Robots {
-  const baseUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000";
+  const baseUrl = siteConfig.url;
 
   return {
     rules: [
       {
         userAgent: "*",
         allow: "/",
+        // TODO: update the disallow rules to match your app's private routes
         disallow: ["/protected/", "/auth/"],
       },
     ],

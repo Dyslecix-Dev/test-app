@@ -27,7 +27,6 @@ import { sendEmail } from "@/lib/email";
 import { WelcomeEmail } from "@/emails/welcome";
 
 await sendEmail({
-  from: "My App <hello@yourdomain.com>",
   to: user.email,
   subject: "Welcome!",
   template: <WelcomeEmail username={user.name} loginUrl="https://yourdomain.com/auth/login" />,
@@ -82,7 +81,6 @@ export default InvoiceEmail;
 import { InvoiceEmail } from "@/emails/invoice";
 
 await sendEmail({
-  from: "Billing <billing@yourdomain.com>",
   to: customer.email,
   subject: `Invoice #${invoice.number}`,
   template: <InvoiceEmail invoiceNumber={invoice.number} total={invoice.total} />,
@@ -114,9 +112,11 @@ import { render } from "@react-email/render";
 ## Setting Up Resend
 
 1. Create a [Resend](https://resend.com) account and generate an API key
-2. Add it to `.env`: `RESEND_API_KEY=re_...`
+2. Add to `.env`: `RESEND_API_KEY=re_...`
 3. Verify your sending domain in the Resend dashboard (required for production)
-4. Update the `from` address in your `sendEmail()` calls to use your verified domain
+4. Set `EMAIL_FROM` in `.env` to your verified sender address (e.g. `"My App <hello@yourdomain.com>"`)
+
+`sendEmail()` uses `EMAIL_FROM` as the default `from` address. You can override it per-call by passing `from` explicitly.
 
 > In development, Resend allows sending to any address using your test API key. In production, the `from` domain must be verified.
 

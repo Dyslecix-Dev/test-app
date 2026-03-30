@@ -4,6 +4,8 @@ export const metadata: Metadata = {
   title: "Offline",
 };
 
+// TODO: verify offline fallback page looks appropriate for your app
+
 export default function OfflinePage() {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center">

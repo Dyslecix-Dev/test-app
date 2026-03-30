@@ -1,4 +1,4 @@
-# Project: Boilerplate
+# Project: Full-Stack Boilerplate
 
 An opinionated full-stack Next.js boilerplate with Supabase, Drizzle ORM, shadcn/ui, and PWA support.
 
@@ -50,6 +50,7 @@ components/
   ui/                 # shadcn/ui primitives (button, card, input, etc.)
   *.tsx               # Feature components (login-form, auth-button, etc.)
 lib/
+  config.ts           # Site-wide config (name, description, url) — single source of truth
   db/                 # Drizzle ORM client + schema + paginate helper
   email/              # Resend client + sendEmail helper
   storage/            # Supabase Storage helpers + upload action
@@ -146,7 +147,7 @@ Configured in `.mcp.json`. Available during AI-assisted development:
 
 - Use `uploadFile()` / `deleteFile()` / `getPublicUrl()` from `@/lib/storage`
 - File uploads go through the `uploadFileAction` server action in `@/lib/storage/actions`
-- Create a `uploads` bucket in Supabase Storage dashboard before using
+- Create an `uploads` bucket in Supabase Storage dashboard before using
 
 ### Rate Limiting
 

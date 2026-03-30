@@ -1,4 +1,4 @@
-# Boilerplate
+# Full-Stack Boilerplate
 
 An opinionated full-stack Next.js boilerplate for building modern web applications. Ships with authentication, database, UI components, PWA support, and a comprehensive testing setup — ready to build on.
 
@@ -35,7 +35,7 @@ An opinionated full-stack Next.js boilerplate for building modern web applicatio
 
    ```bash
    git clone <your-repo-url>
-   cd boilerplate
+   cd full-stack-boilerplate
    ```
 
 2. **Install dependencies**
@@ -141,7 +141,7 @@ Before shipping, work through [CHECKLIST.md](CHECKLIST.md) — it covers brandin
 
 ## Cleaning Up
 
-The boilerplate ships with a few demo-only files. These are safe to delete — they have no effect on the rest of the app:
+The full-stack boilerplate ships with a few demo-only files. These are safe to delete — they have no effect on the rest of the app:
 
 | What to remove        | File(s)                                       | Also remove from                                                                         |
 | --------------------- | --------------------------------------------- | ---------------------------------------------------------------------------------------- |
@@ -186,7 +186,7 @@ pnpm build && pnpm start
 
 ## Agent Skills (Claude Code)
 
-This boilerplate ships with pre-configured [Claude Code](https://claude.ai/claude-code) agent skills in `.agents/skills/` for AI-assisted development:
+This full-stack boilerplate ships with pre-configured [Claude Code](https://claude.ai/claude-code) agent skills in `.agents/skills/` for AI-assisted development:
 
 | Skill                            | Source                      | Purpose                                           |
 | -------------------------------- | --------------------------- | ------------------------------------------------- |

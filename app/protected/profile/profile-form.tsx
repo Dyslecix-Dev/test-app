@@ -12,7 +12,7 @@ import { Label } from "@/components/ui/label";
 import { profileSchema, updateProfile } from "./actions";
 
 // NOTE:example form using Conform + Zod for validation, a Server Action for submission, and useOptimistic for instant UI feedback.
-// This demonstrates the recommended pattern for forms in this boilerplate:
+// This demonstrates the recommended pattern for forms in this full-stack boilerplate:
 // 1. Define the Zod schema and server action in a separate `actions.ts` file
 // 2. Use `useActionState` to connect the form to the server action
 // 3. Use `useForm` from Conform for client-side validation with the same Zod schema

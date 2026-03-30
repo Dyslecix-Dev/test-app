@@ -10,7 +10,7 @@ import { Label } from "@/components/ui/label";
 import { uploadFileAction } from "@/lib/storage/actions";
 
 // NOTE: example file upload component using Supabase Storage.
-// Demonstrates the recommended pattern for file uploads in this boilerplate.
+// Demonstrates the recommended pattern for file uploads in this full-stack boilerplate.
 
 // TODO: replace this demo with your app's actual upload UI (e.g., avatar, document upload)
 

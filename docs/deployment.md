@@ -112,7 +112,7 @@ Before going live, verify:
 - [ ] Site URL and redirect URLs configured for the production domain
 - [ ] Row Level Security (RLS) policies reviewed and enabled on all tables
 - [ ] Database migrations applied (`pnpm db:migrate`)
-- [ ] Storage bucket created if using file uploads (`uploads`)
+- [ ] An `uploads` bucket created if using file uploads (`uploads`)
 
 ### DNS and HTTPS
 

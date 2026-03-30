@@ -1,16 +1,21 @@
 import { Body, Button, Container, Head, Heading, Hr, Html, Preview, Section, Text } from "@react-email/components";
 
+import { siteConfig } from "@/lib/config";
+
 interface WelcomeEmailProps {
   username: string;
   loginUrl: string;
+  appName?: string;
 }
 
 // TODO: update email copy (Preview, Heading, Text) to reference your app's actual name and messaging
-export function WelcomeEmail({ username, loginUrl }: WelcomeEmailProps) {
+export function WelcomeEmail({ username, loginUrl, appName = siteConfig.name }: WelcomeEmailProps) {
   return (
     <Html>
       <Head />
-      <Preview>Welcome to the app, {username}!</Preview>
+      <Preview>
+        Welcome to {appName}, {username}!
+      </Preview>
       <Body style={body}>
         <Container style={container}>
           <Heading style={heading}>Welcome, {username}!</Heading>

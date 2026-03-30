@@ -6,15 +6,18 @@ import { AuthButton } from "@/components/auth-button";
 import { DeployButton } from "@/components/deploy-button";
 import { Hero } from "@/components/hero";
 import { ThemeSwitcher } from "@/components/theme-switcher";
+import { siteConfig } from "@/lib/config";
 
 // TODO: update with your app's real name, URL, and description
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  name: "My App",
-  url: process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000",
-  description: "My App description",
+  name: siteConfig.name,
+  url: siteConfig.url,
+  description: siteConfig.description,
 };
+
+// TODO: replace landing page content with your own app's content
 
 export default function Home() {
   return (
@@ -24,8 +27,7 @@ export default function Home() {
         <nav aria-label="Main navigation" className="border-b-foreground/10 flex h-16 w-full justify-center border-b">
           <div className="flex w-full max-w-5xl items-center justify-between p-3 px-5 text-sm">
             <div className="flex items-center gap-5 font-semibold">
-              {/* TODO: replace "My App" with your app name */}
-              <Link href={"/"}>My App</Link>
+              <Link href={"/"}>{siteConfig.name}</Link>
               {/* TODO: remove <DeployButton /> — this is a boilerplate helper only */}
               <div className="flex items-center gap-2">
                 <DeployButton />

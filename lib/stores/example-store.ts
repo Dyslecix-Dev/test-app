@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-// NOTE: example Zustand store — demonstrates the recommended pattern for this boilerplate.
+// NOTE: example Zustand store — demonstrates the recommended pattern for this full-stack boilerplate.
 
 // Usage in a client component:
 //

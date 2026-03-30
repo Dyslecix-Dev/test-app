@@ -10,26 +10,22 @@ import { SerwistProvider } from "@/app/serwist";
 import { OfflineBanner } from "@/components/offline-banner";
 import { QueryProvider } from "@/components/query-provider";
 import { Toaster } from "@/components/ui/sonner";
+import { siteConfig } from "@/lib/config";
 
-const DEFAULT_URL = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000";
-// TODO: update these with your app's name and description
-const APP_NAME = "My App";
-const APP_DEFAULT_TITLE = "My App";
-const APP_TITLE_TEMPLATE = "%s | My App";
-const APP_DESCRIPTION = "My App description";
+const APP_TITLE_TEMPLATE = `%s | ${siteConfig.name}`;
 
 export const metadata: Metadata = {
-  metadataBase: new URL(DEFAULT_URL),
-  applicationName: APP_NAME,
+  metadataBase: new URL(siteConfig.url),
+  applicationName: siteConfig.name,
   title: {
-    default: APP_DEFAULT_TITLE,
+    default: siteConfig.name,
     template: APP_TITLE_TEMPLATE,
   },
-  description: APP_DESCRIPTION,
+  description: siteConfig.description,
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
-    title: APP_DEFAULT_TITLE,
+    title: siteConfig.name,
     // TODO: replace placeholder splash screens in public/splash/ with branded images.
     // NOTE: use a tool like https://progressier.com/pwa-icons-and-ios-splash-screen-generator to generate them from your app icon.
     startupImage: [
@@ -71,20 +67,20 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
-    siteName: APP_NAME,
+    siteName: siteConfig.name,
     title: {
-      default: APP_DEFAULT_TITLE,
+      default: siteConfig.name,
       template: APP_TITLE_TEMPLATE,
     },
-    description: APP_DESCRIPTION,
+    description: siteConfig.description,
   },
   twitter: {
     card: "summary",
     title: {
-      default: APP_DEFAULT_TITLE,
+      default: siteConfig.name,
       template: APP_TITLE_TEMPLATE,
     },
-    description: APP_DESCRIPTION,
+    description: siteConfig.description,
   },
 };
 

@@ -7,6 +7,7 @@ import { AuthButton } from "@/components/auth-button";
 // TODO: remove DeployButton import — this is a boilerplate demo only
 import { DeployButton } from "@/components/deploy-button";
 import { ThemeSwitcher } from "@/components/theme-switcher";
+import { siteConfig } from "@/lib/config";
 import { createOrGetUser } from "@/lib/db/ensure-user";
 import { createClient } from "@/lib/supabase/server";
 
@@ -29,8 +30,7 @@ export default async function ProtectedLayout({ children }: { children: React.Re
         <nav aria-label="Main navigation" className="border-b-foreground/10 flex h-16 w-full justify-center border-b">
           <div className="flex w-full max-w-5xl items-center justify-between p-3 px-5 text-sm">
             <div className="flex items-center gap-5 font-semibold">
-              {/* TODO: replace "My App" with your app name */}
-              <Link href={"/"}>My App</Link>
+              <Link href={"/"}>{siteConfig.name}</Link>
               <Link href={"/protected/profile"} className="text-muted-foreground hover:text-foreground font-normal transition-colors">
                 Profile
               </Link>

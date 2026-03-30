@@ -12,6 +12,7 @@ export const metadata: Metadata = {
 };
 
 // TODO: replace this demo page with your app's actual profile page
+
 export default async function ProfilePage() {
   const supabase = await createClient();
   const { data, error } = await supabase.auth.getClaims();

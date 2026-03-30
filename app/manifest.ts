@@ -1,11 +1,12 @@
 import type { MetadataRoute } from "next";
 
+import { siteConfig } from "@/lib/config";
+
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    // TODO: update name, short_name, and description with your app info
-    name: "My App",
-    short_name: "MyApp",
-    description: "My App description",
+    name: siteConfig.name,
+    short_name: siteConfig.name,
+    description: siteConfig.description,
     start_url: "/",
     display: "standalone",
     // TODO: update background_color and theme_color to match your brand
