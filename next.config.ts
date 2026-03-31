@@ -21,7 +21,7 @@ import { z } from "zod/v4";
     VAPID_MAILTO: z.string().startsWith("mailto:").optional(),
   });
 
-  if ((process.env.NODE_ENV === "development" || process.env.NODE_ENV === "production") && !process.env.CI) {
+  if (!process.env.CI && (process.env.NODE_ENV === "development" || process.env.NODE_ENV === "production")) {
     const parsed = envSchema.safeParse(process.env);
 
     if (!parsed.success) {

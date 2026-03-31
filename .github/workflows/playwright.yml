@@ -21,6 +21,11 @@ jobs:
         run: pnpm exec playwright install --with-deps
       - name: Run Playwright tests
         run: pnpm exec playwright test
+        env:
+          NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: test-key
+          NEXT_PUBLIC_SUPABASE_URL: https://test.supabase.co
+          POSTGRES_URL: postgresql://test:test@localhost/test
+          POSTGRES_URL_NON_POOLING: postgresql://test:test@localhost/test
       - uses: actions/upload-artifact@v7
         if: ${{ !cancelled() }}
         with:
