@@ -1,0 +1,57 @@
+{
+  "mcpServers": {
+    "eslint": {
+      "command": "npx",
+      "args": ["-y", "@eslint/mcp@latest"],
+      "env": {}
+    },
+    "github": {
+      "type": "http",
+      "url": "https://api.githubcopilot.com/mcp/",
+      "headers": {
+        "Authorization": "Bearer ${GITHUB_PERSONAL_ACCESS_TOKEN}"
+      }
+    },
+    "inkeepMcp": {
+      "command": "npx",
+      "args": ["-y", "mcp-remote", "https://mcp.inkeep.com/zod/mcp"]
+    },
+    "next-devtools": {
+      "command": "npx",
+      "args": ["-y", "next-devtools-mcp@latest"]
+    },
+    "resend": {
+      "command": "npx",
+      "args": ["-y", "resend-mcp"],
+      "env": {
+        "RESEND_API_KEY": "${RESEND_API_KEY}"
+      }
+    },
+    "Sentry": {
+      "url": "https://mcp.sentry.dev/mcp"
+    },
+    "shadcn": {
+      "command": "npx",
+      "args": ["-y", "shadcn@latest", "mcp"]
+    },
+    "supabase": {
+      "type": "http",
+      "url": "https://mcp.supabase.com/mcp",
+      "headers": {
+        "Authorization": "Bearer ${SUPABASE_ACCESS_TOKEN}"
+      }
+    },
+    "vercel": {
+      "type": "http",
+      "url": "https://mcp.vercel.com"
+    },
+    "upstash": {
+      "command": "npx",
+      "args": ["-y", "@upstash/mcp-server@latest", "--email", "${UPSTASH_EMAIL}", "--api-key", "${UPSTASH_API_KEY}"]
+    },
+    "vitest": {
+      "command": "npx",
+      "args": ["-y", "@djankies/vitest-mcp"]
+    }
+  }
+}
