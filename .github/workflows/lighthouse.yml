@@ -26,6 +26,11 @@ jobs:
           POSTGRES_URL_NON_POOLING: postgresql://test:test@localhost/test
       - name: Collect Lighthouse reports
         run: pnpm exec lhci collect
+        env:
+          NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: test-key
+          NEXT_PUBLIC_SUPABASE_URL: https://test.supabase.co
+          POSTGRES_URL: postgresql://test:test@localhost/test
+          POSTGRES_URL_NON_POOLING: postgresql://test:test@localhost/test
       - name: Assert Lighthouse thresholds
         run: pnpm exec lhci assert
       - uses: actions/upload-artifact@v7

@@ -75,5 +75,9 @@ export default defineConfig({
     command: "pnpm dev",
     url: "http://localhost:3000",
     reuseExistingServer: !process.env.CI,
+    env: {
+      // NOTE: raise auth rate limit for E2E tests — the default (10 req/min) is too low for parallel browser tests
+      AUTH_RATE_LIMIT: "500",
+    },
   },
 });
